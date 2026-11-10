@@ -2,7 +2,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController; // Sesuaikan jika AdminProductController ada di dalam folder Admin
+use App\Http\Controllers\Admin\ProductController; 
+use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\ShippingServiceController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +38,16 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])->group
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store'); 
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update'); 
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy'); 
+    Route::resource('products', ProductController::class)->except('show'); 
+
+    Route::get('/stock', [StockController::class, 'index'])->name('stock.index');
+    Route::get('/stock/create', [StockController::class, 'create'])->name('stock.create');
+    Route::post('/stock', [StockController::class, 'store'])->name('stock.store');
+
+    Route::get('/shipping', [ShippingServiceController::class, 'index'])->name('shipping.index'); 
+    Route::post('/shipping', [ShippingServiceController::class, 'store'])->name('shipping.store'); 
+    Route::put('/shipping/{shipping}', [ShippingServiceController::class, 'update'])->name('shipping.update'); 
+    Route::delete('/shipping/{shipping}', [ShippingServiceController::class, 'destroy'])->name('shipping.destroy'); 
     Route::resource('products', ProductController::class)->except('show'); 
 }); 
 
