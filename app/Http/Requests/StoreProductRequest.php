@@ -21,7 +21,7 @@ class StoreProductRequest extends FormRequest
             'name' => ['required', 'max:150'], 
             'description' => ['nullable', 'string'], 
             'price' => ['required', 'numeric', 'min:0'], 
-            'image' => ['nullable', File::image()->max('2mb')], 
+            'image' => 'nullable|image|max:2048',  
             'is_active' => ['nullable', 'boolean'], 
         ]; 
     } 

@@ -32,7 +32,7 @@ class AuthController extends Controller
  
         return $request->user()->role === 'admin' 
             ? redirect()->route('admin.dashboard') 
-            : redirect()->intended(route('shop.index')); 
+            : redirect()->intended(route('home')); 
     } 
  
     public function showRegister(): View 
@@ -58,7 +58,7 @@ class AuthController extends Controller
         Auth::login($user); 
         $request->session()->regenerate(); 
  
-        return redirect()->route('shop.index'); 
+        return redirect()->route('layout.app'); 
     } 
  
     public function logout(Request $request): RedirectResponse 
@@ -67,6 +67,6 @@ class AuthController extends Controller
         $request->session()->invalidate(); 
         $request->session()->regenerateToken(); 
  
-        return redirect()->route('shop.index'); 
+        return redirect()->route('login'); 
     } 
 } 
