@@ -4,7 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController; 
 use App\Http\Controllers\Admin\StockController;
-use App\Http\Controllers\Admin\ShippingServiceController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
+use App\Http\Controllers\Admin\ShippingServiceController;
+use App\Http\Controllers\ProductCatalogController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,3 +61,11 @@ Route::get('/cart', function () {
 Route::get('/orders', function () {
     return view('orders.index'); // Sesuaikan dengan view pesanan Anda
 })->name('orders.index')->middleware('auth');
+
+// Rute utama (root)
+Route::get('/', [ProductCatalogController::class, 'index'])->name('shop.index');
+
+// Tambahkan rute ini agar URL /home juga membuka katalog produk yang sama
+Route::get('/home', [ProductCatalogController::class, 'index'])->name('home');
+
+Route::get('/product/{product:slug}', [ProductCatalogController::class, 'show'])->name('shop.show');
