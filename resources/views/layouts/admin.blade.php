@@ -13,10 +13,6 @@
 <a href="{{ route('admin.dashboard') }}">Dashboard</a> 
 <a href="{{ route('admin.categories.index') }}">Kategori</a> 
 <a href="{{ route('admin.products.index') }}">Produk</a> 
-<a href="{{ route('admin.stock.index') }}">Stok & Barang Masuk</a> 
-<a href="{{ route('admin.shipping.index') }}">Ekspedisi</a> 
-<a href="{{ route('admin.orders.index') }}">Transaksi</a> 
-<a href="{{ route('shop.index') }}">Lihat Toko</a> 
 <form method="POST" action="{{ route('logout') }}">@csrf<button class="btn" type="submit">Logout</button> 
 </form> 
 </aside> 

@@ -1,7 +1,8 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController; // Sesuaikan jika AdminProductController ada di dalam folder Admin
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', function () {
+    return view('layouts.app'); // Sesuaikan dengan view utama Anda
+})->name('home');
 
 Route::middleware('guest')->group(function () { 
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login'); 
@@ -27,9 +28,23 @@ Route::middleware('guest')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout'); 
 
 Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])->group(function () { 
+    Route::get('/dashboard', function () {
+        return view('layouts.admin'); // Pastikan file view admin/dashboard.blade.php ada
+    })->name('dashboard');
+    
     Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index'); 
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store'); 
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update'); 
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy'); 
-    Route::resource('products', AdminProductController::class)->except('show'); 
+    Route::resource('products', ProductController::class)->except('show'); 
 }); 
+
+// Rute untuk Keranjang Belanja (Customer)
+Route::get('/cart', function () {
+    return view('cart.index'); // Sesuaikan dengan view keranjang Anda
+})->name('cart.index')->middleware('auth');
+
+// Rute untuk Riwayat Pesanan (Customer)
+Route::get('/orders', function () {
+    return view('orders.index'); // Sesuaikan dengan view pesanan Anda
+})->name('orders.index')->middleware('auth');

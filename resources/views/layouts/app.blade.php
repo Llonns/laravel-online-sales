@@ -18,8 +18,8 @@
 <body> 
 <nav> 
 <div class="container nav"> 
-    <a class="brand" href="{{ route('shop.index') }}">Toko Laravel</a> 
-    <a href="{{ route('shop.index') }}">Produk</a> 
+    <a class="brand" href="{{ route('home') }}">Toko Laravel</a> 
+    <a href="{{ route('home') }}">Produk</a> 
     @auth 
  
         @if(auth()->user()->role === 'customer') 
@@ -31,8 +31,10 @@
             <a href="{{ route('admin.dashboard') }}">Admin</a> 
         @endif 
  
-        <form method="POST" action="{{ route('logout') }}">@csrf<button class="btn-light" type="submit">Logout</button> 
-</form> 
+        <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="btn-light">Logout</button>
+        </form> 
     @else 
  
         <a href="{{ route('login') }}">Login</a> 
