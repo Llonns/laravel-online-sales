@@ -9,6 +9,8 @@ use App\Http\Controllers\ProductCatalogController;
 use App\Http\Controllers\CartController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
 use App\Http\Controllers\CheckoutController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
 use App\Http\Controllers\CustomerOrderController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
+use App\Http\Controllers\Admin\DashboardController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
+use App\Http\Controllers\Admin\OrderController;// Sesuaikan jika AdminProductController ada di dalam folder Admin
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -85,4 +87,13 @@ Route::middleware(['auth','role:customer'])->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store'); 
     Route::get('/pesanan', [CustomerOrderController::class, 'index'])->name('orders.index'); 
     Route::get('/pesanan/{order}', [CustomerOrderController::class, 'show'])->name('orders.show'); 
+}); 
+
+Route::prefix('admin')->name('admin.')->middleware(['auth','role:admin'])->group(function () { 
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard'); 
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index'); 
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('orders.show'); 
+    Route::patch('/orders/{order}/confirm', [OrderController::class, 'confirm'])->name('orders.confirm'); 
+    Route::patch('/orders/{order}/status', [OrderController::class, 'updateStatus'])->name('orders.status'); 
+    Route::patch('/orders/{order}/cancel', [OrderController::class, 'cancel'])->name('orders.cancel'); 
 }); 
