@@ -3,11 +3,12 @@
 namespace App\Http\Resources; 
  
 use Illuminate\Http\Request; 
-use Illuminate\Http\Resources\Json\JsonResource; 
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Carbon; 
  
 class OrderResource extends JsonResource 
 { 
-    public function toArray(Request $request): array 
+    public function toArray($request) 
     { 
         return [ 
             'id' => $this->id, 
@@ -24,8 +25,8 @@ class OrderResource extends JsonResource
             ], 
             'subtotal' => (float) $this->subtotal, 
             'grand_total' => (float) $this->grand_total, 
-            'ordered_at' => $this->ordered_at?->toISOString(), 
-            'validated_at' => $this->validated_at?->toISOString(), 
+            'ordered_at' => $this->ordered_at ? Carbon::parse($this->ordered_at)->toISOString() : null,
+'validated_at' => $this->validated_at ? Carbon::parse($this->validated_at)->toISOString() : null,
             'customer' => $this->whenLoaded('user', fn () => [ 
                 'id' => $this->user->id, 
                 'name' => $this->user->name, 
