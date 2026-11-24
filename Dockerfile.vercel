@@ -10,7 +10,8 @@ RUN composer install \
     --prefer-dist \
     --no-interaction \
     --no-progress \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --ignore-platform-req=php
 
 FROM dunglas/frankenphp:1-php8.3-bookworm
 
