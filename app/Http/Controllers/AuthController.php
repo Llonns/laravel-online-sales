@@ -58,7 +58,7 @@ class AuthController extends Controller
         Auth::login($user); 
         $request->session()->regenerate(); 
  
-        return redirect()->route('layouts.app'); 
+        return redirect()->route('home'); 
     } 
  
     public function logout(Request $request): RedirectResponse 
