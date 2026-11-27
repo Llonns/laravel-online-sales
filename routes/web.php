@@ -23,7 +23,7 @@ use App\Http\Controllers\Admin\OrderController;// Sesuaikan jika AdminProductCon
 */
 
 Route::get('/home', function () {
-    return view('layouts.app'); // Sesuaikan dengan view utama Anda
+    return view('layouts.app'); 
 })->name('home');
 
 Route::middleware('guest')->group(function () { 
